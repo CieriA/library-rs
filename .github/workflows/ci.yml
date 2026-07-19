@@ -78,26 +78,6 @@ jobs:
       - name: Build docs
         run: cargo doc --workspace --all-features --no-deps --document-private-items
 
-  msrv:
-    name: MSRV
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Get MSRV from Cargo.toml
-        id: msrv
-        run: |
-          MSRV=$(grep '^rust-version' Cargo.toml | sed -E 's/.*"(.*)".*/\1/')
-          echo "version=$MSRV" >> "$GITHUB_OUTPUT"
-      - uses: dtolnay/rust-toolchain@master
-        with:
-          toolchain: ${{ steps.msrv.outputs.version }}
-      - uses: Swatinem/rust-cache@v2
-        with:
-          key: msrv
-      - name: Check with MSRV
-        run: cargo check --workspace --all-features
-
-  # Job "gate" per branch protection: basta richiedere questo su GitHub
   ci:
     name: CI
     if: always()

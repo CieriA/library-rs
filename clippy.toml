@@ -1,0 +1,10 @@
+disallowed-names = [
+    "temp",
+    "vec",
+    "list",
+    "collection",
+    "string",
+    "iter",
+    ".."
+]
+cognitive-complexity-threshold = 15
